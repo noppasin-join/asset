@@ -10,13 +10,13 @@ include ("con_lda.php");
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-        <title>:: ระบบยืมวัสดุ/ครุภัณฑ์ ศูนย์บรรณสารฯ</title>
+        <title>:: Library Equipment Request</title>
 		    <link rel="shortcut icon" href="admin/mfu.ico" type="image/x-icon">
 </head>
 <body>
 <?php
 		$sql_year = "select * from  budget order by year_budget desc   ";
-		$dbquery_year=ams_query($link,$sql_year) or die ("เลือกข้อมูลไม่ได้");
+		$dbquery_year=ams_query($link,$sql_year) or die ("Unable to retrieve data.");
 		$result_year=mysqli_fetch_array($dbquery_year);
 		$year_budget=$result_year['year_budget'];
 
@@ -61,7 +61,7 @@ include ("con_lda.php");
 			$qr_insert=ams_query($link,$sql_insert) or die ("Error Insert");
 
 			$sql_sort = ams_sql("select * from  data_take where year_budget=? and name=? and surname=? and day_submit=? and month_submit=? and year_submit=? order by id desc", ["$year_budget", "$trim_name", "$trim_surname", "$day", "$month", "$year"]);
-			$qr_sort=ams_query($link,$sql_sort) or die ("เลือกข้อมูลไม่ได้");
+			$qr_sort=ams_query($link,$sql_sort) or die ("Unable to retrieve data.");
 			$num_sort=mysqli_num_rows($qr_sort);
 			if($num_sort!=0) {
 						$rs_sort=mysqli_fetch_array($qr_sort);
@@ -69,7 +69,7 @@ include ("con_lda.php");
 
 						//1
 						$sql_lda_1 = ams_sql("select * from  data_lda where id=? ", ["$txt_title1"]);
-						$qr_lda_1=ams_query($link,$sql_lda_1) or die ("เลือกข้อมูลไม่ได้");
+						$qr_lda_1=ams_query($link,$sql_lda_1) or die ("Unable to retrieve data.");
 							$rs_lda_1=mysqli_fetch_array($qr_lda_1);
 							$lda_list_1=$rs_lda_1['lda_list'];
 
@@ -80,7 +80,7 @@ include ("con_lda.php");
 						//2
 						if($txt_title2!="") {
 							$sql_lda_2 = ams_sql("select * from  data_lda where id=? ", ["$txt_title2"]);
-							$qr_lda_2=ams_query($link,$sql_lda_2) or die ("เลือกข้อมูลไม่ได้");
+							$qr_lda_2=ams_query($link,$sql_lda_2) or die ("Unable to retrieve data.");
 								$rs_lda_2=mysqli_fetch_array($qr_lda_2);
 								$lda_list_2=$rs_lda_2['lda_list'];
 
@@ -92,7 +92,7 @@ include ("con_lda.php");
 						//3
 						if($txt_title3!="") {
 							$sql_lda_3 = ams_sql("select * from  data_lda where id=? ", ["$txt_title3"]);
-							$qr_lda_3=ams_query($link,$sql_lda_3) or die ("เลือกข้อมูลไม่ได้");
+							$qr_lda_3=ams_query($link,$sql_lda_3) or die ("Unable to retrieve data.");
 								$rs_lda_3=mysqli_fetch_array($qr_lda_3);
 								$lda_list_3=$rs_lda_3['lda_list'];
 
@@ -104,7 +104,7 @@ include ("con_lda.php");
 						//4
 						if($txt_title4!="") {
 							$sql_lda_4 = ams_sql("select * from  data_lda where id=? ", ["$txt_title4"]);
-							$qr_lda_4=ams_query($link,$sql_lda_4) or die ("เลือกข้อมูลไม่ได้");
+							$qr_lda_4=ams_query($link,$sql_lda_4) or die ("Unable to retrieve data.");
 								$rs_lda_4=mysqli_fetch_array($qr_lda_4);
 								$lda_list_4=$rs_lda_4['lda_list'];
 
@@ -116,7 +116,7 @@ include ("con_lda.php");
 						//5
 						if($txt_title5!="") {
 							$sql_lda_5 = ams_sql("select * from  data_lda where id=? ", ["$txt_title5"]);
-							$qr_lda_5=ams_query($link,$sql_lda_5) or die ("เลือกข้อมูลไม่ได้");
+							$qr_lda_5=ams_query($link,$sql_lda_5) or die ("Unable to retrieve data.");
 								$rs_lda_5=mysqli_fetch_array($qr_lda_5);
 								$lda_list_5=$rs_lda_5['lda_list'];
 
@@ -127,7 +127,7 @@ include ("con_lda.php");
 
 		  }
 
-		echo "<SCRIPT LANGUAGE='JavaScript'>alert('บันทึกข้อมูลขอยืมวัสดุ/ครุภัณฑ์ เรียบร้อย')</script>";
+		echo "<SCRIPT LANGUAGE='JavaScript'>alert('Your equipment request has been submitted successfully.')</script>";
 		echo "<meta http-equiv=\"Refresh\" content=\"0; URL=data.php?LB=1\">";
 
 ?>
