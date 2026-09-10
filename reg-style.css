@@ -1,0 +1,43 @@
+@media only screen and (max-width:1280px){.hidden-1280{display:none!important}}
+@media only screen and (max-width:1200px){.hidden-1200{display:none!important}}
+@media only screen and (max-width:1100px){.hidden-1100{display:none!important}}
+@media only screen and (max-width:1000px){.hidden-1000{display:none!important}}
+@media only screen and (max-width:900px){.hidden-900{display:none!important}}
+@media only screen and (max-width:800px){.hidden-800{display:none!important}}
+@media only screen and (max-width:700px){.hidden-700{display:none!important}}
+@media only screen and (max-width:500px){.hidden-500{display:none!important}}
+@media only screen and (max-width:600px){.hidden-600{display:none!important}}
+@media only screen and (max-width:500px){.hidden-500{display:none!important}}
+@media only screen and (max-width:400px){.hidden-400{display:none!important}}
+@media only screen and (max-width:380px){.hidden-380{display:none!important}}
+
+.font_link_blue:link    { font-size: 15px; color: #0d6efd; text-decoration: none; }
+.font_link_blue:visited { font-size: 15px; color: #5f5c5c; text-decoration: none; }
+.font_link_blue:hover   { font-size: 15px; color: #990000; text-decoration: underline; }
+.font_link_blue:active  { font-size: 15px; color: #990000; text-decoration: underline; }
+
+.font_link_red:link    { font-size: 15px; color: #4b75c4; text-decoration: none; }
+.font_link_red:visited { font-size: 15px; color: #4b75c4; text-decoration: none; }
+.font_link_red:hover   { font-size: 15px; color: #8e5248; text-decoration: underline; }
+.font_link_red:active  { font-size: 15px; color: #4b75c4; text-decoration: underline; }
+
+.font_link_blue2    { font-size: 16px; color: #4b75c4; text-decoration: none; font-weight:bold;}
+.font_link_red3    { font-size: 16px; color: #990000; text-decoration: none; font-weight:bold;}
+.font_link_green    { font-size: 16px; color: #3c8248; text-decoration: none; font-weight:bold;}
+
+.font_link_red2:link    { font-size: 13px; color: #747272; text-decoration: none; }
+.font_link_red2:visited { font-size: 13px; color: #747272; text-decoration: none; }
+.font_link_red2:hover   { font-size: 13px; color: #990000; text-decoration: underline; }
+.font_link_red2:active  { font-size: 13px; color: #747272; text-decoration: underline; }
+
+.font_13 { font-size: 13px; }
+.font_14 { font-size: 14px; }
+.font_15 { font-size: 15px!important; }
+.font_16 { font-size: 16px!important; }
+.font_brown { color:#474848!important; vertical-align:middle!important; }
+.font_brown_bold { color:#5b5c5c!important; vertical-align:middle!important;font-weight:bold!important; }
+.font_white { vertical-align:middle!important; }
+.workflow_head { font-size: 16px!important;vertical-align:middle!important;color:#474848!important; }
+.workflow_icon { font-size: 20px!important;vertical-align:middle!important;color:#474848!important; }
+
+.center { text-align: center!important; }
