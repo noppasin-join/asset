@@ -1,4 +1,20 @@
-<?php require_once __DIR__ . '/admin/security.php'; ams_require_post(); ?>
+<?php require_once __DIR__ . '/admin/security.php'; ams_require_post();
+$request_purpose = $_POST['txt_obj'] ?? '';
+$request_start = $_POST['txt_date_start'] ?? '';
+$request_end = $_POST['txt_date_end'] ?? '';
+if (!is_string($request_purpose) || trim($request_purpose) === '' || !is_string($request_start) || !is_string($request_end)) {
+    ams_deny(422, 'Please enter the purpose, start date and return date.');
+}
+$request_start_date = DateTime::createFromFormat('!d/m/Y', $request_start);
+$request_end_date = DateTime::createFromFormat('!d/m/Y', $request_end);
+if (!$request_start_date || !$request_end_date || $request_start_date->format('d/m/Y') !== $request_start || $request_end_date->format('d/m/Y') !== $request_end) {
+    ams_deny(422, 'Please enter valid dates in DD/MM/YYYY format.');
+}
+if ($request_end_date < $request_start_date) ams_deny(422, 'Return date must not be before start date.');
+$request_purpose = trim($request_purpose);
+$request_checkout = $request_start_date->format('Y-m-d');
+$request_checkin = $request_end_date->format('Y-m-d');
+ ?>
 <?php
 include ("con_lda.php");
 	$back = $_SERVER['HTTP_REFERER'] ?? '';
@@ -25,30 +41,12 @@ include ("con_lda.php");
 			$txt_department=$_POST['txt_department'];
 			$txt_tel=$_POST['txt_tel'];
 			$txt_email=$_POST['txt_email'];
-			$txt_obj=$_POST['txt_obj'];
-			$txt_date_start=$_POST['txt_date_start'];
-			$txt_date_end=$_POST['txt_date_end'];
-
-			$pie=explode ("/", $txt_date_start);
-			$pie2=explode ("/", $txt_date_end);
-
-			$varStartDate = "$pie[2]-$pie[1]-$pie[0]"; //echo $varStartDate;
-			$strStartDate = date_create("$pie[2]-$pie[1]-$pie[0]"); //echo $strStartDate;
-			$strEndDate = date_create("$pie2[2]-$pie2[1]-$pie2[0]"); //echo $strEndDate;
-			$diff=date_diff($strStartDate,$strEndDate);
-
-			$var_date = $diff->format("%a");
-			$var_date_1 = $var_date+1;
-
-
-
-
 			$trim_name = trim ($txt_name);
 			$trim_surname = trim ($txt_surname);
 			$trim_department = trim ($txt_department);
 			$trim_tel = trim ($txt_tel);
 			$trim_email = trim ($txt_email);
-			$trim_obj = trim ($txt_obj);
+			
 
 			$txt_title1=$_POST['txt_title1']; $txt_amount1=$_POST['txt_amount1']; $txt_unit1=$_POST['txt_unit1']; $txt_note1=$_POST['txt_note1'];
 			$txt_title2=$_POST['txt_title2']; $txt_amount2=$_POST['txt_amount2']; $txt_unit2=$_POST['txt_unit2']; $txt_note2=$_POST['txt_note2'];
@@ -57,7 +55,7 @@ include ("con_lda.php");
 			$txt_title5=$_POST['txt_title5']; $txt_amount5=$_POST['txt_amount5']; $txt_unit5=$_POST['txt_unit5']; $txt_note5=$_POST['txt_note5'];
 
 			$sql_insert=ams_sql("insert into data_take(year_budget,name,surname,department,tel,email,objective,checkout,checkin,day_submit,month_submit,year_submit,time_submit,status_read,status_approve) values
-			(?,?,?,?,?,?,?,?,?,?,?,?,?,'0','2') ", ["$year_budget", "$trim_name", "$trim_surname", "$trim_department", "$trim_tel", "$trim_email", "$trim_obj", "$pie[2]-$pie[1]-$pie[0]", "$pie2[2]-$pie2[1]-$pie2[0]", "$day", "$month", "$year", "$time_log"]);
+			(?,?,?,?,?,?,?,?,?,?,?,?,?,'0','2') ", ["$year_budget", "$trim_name", "$trim_surname", "$trim_department", "$trim_tel", "$trim_email", $request_purpose, $request_checkout, $request_checkin, "$day", "$month", "$year", "$time_log"]);
 			$qr_insert=ams_query($link,$sql_insert) or die ("Error Insert");
 
 			$sql_sort = ams_sql("select * from  data_take where year_budget=? and name=? and surname=? and day_submit=? and month_submit=? and year_submit=? order by id desc", ["$year_budget", "$trim_name", "$trim_surname", "$day", "$month", "$year"]);
@@ -127,8 +125,36 @@ include ("con_lda.php");
 
 		  }
 
-		echo "<SCRIPT LANGUAGE='JavaScript'>alert('Your equipment request has been submitted successfully.')</script>";
-		echo "<meta http-equiv=\"Refresh\" content=\"0; URL=data.php?LB=1\">";
+        echo <<<'SUCCESS_POPUP'
+<style>
+body{margin:0;background:#f2f7f4;font-family:Arial,sans-serif;color:#213e34}
+.request-success{box-sizing:border-box;width:calc(100% - 36px);max-width:430px;padding:36px 32px 28px;border:1px solid #e0eae4;border-radius:20px;text-align:center;color:#213e34;background:#fff;box-shadow:0 24px 70px rgba(24,64,46,.18)}
+.request-success::backdrop{background:rgba(22,46,36,.38);backdrop-filter:blur(4px)}
+.request-success[open]{position:fixed;inset:0;margin:auto;height:fit-content;animation:success-in .2s ease-out}
+.success-icon{display:flex;align-items:center;justify-content:center;width:72px;height:72px;margin:0 auto 22px;background:#e9f6ef;border-radius:50%;color:#247b61}
+.request-success h1{font-size:24px;line-height:1.35;margin:0 0 12px;font-weight:600}
+.request-success p{font-size:15px;line-height:1.75;color:#71817b;margin:0 0 26px}
+.success-confirm{box-sizing:border-box;display:block;width:100%;padding:14px 20px;background:#247b61;border-radius:10px;color:#fff;text-decoration:none;font-size:15px;font-weight:600;transition:background .15s}
+.success-confirm:hover{background:#19634d}.success-confirm:focus-visible{outline:3px solid #96d4b8;outline-offset:4px}
+@keyframes success-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.request-success[open]{animation:none}}
+</style>
+<dialog class="request-success" id="request-success" open aria-labelledby="success-title" aria-describedby="success-description">
+<div class="success-icon" aria-hidden="true"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M9 18.5l6 6L28 11" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+<h1 id="success-title">Request submitted!</h1>
+<p id="success-description">Your equipment request has been<br>submitted successfully.</p>
+<a class="success-confirm" href="data.php?LB=1" id="success-confirm" autofocus>OK</a>
+</dialog>
+<script>
+(function(){
+ var dialog=document.getElementById('request-success');
+ function continueToRequests(){window.location.replace('data.php?LB=1');}
+ if(typeof dialog.showModal==='function'){dialog.removeAttribute('open');dialog.showModal();}
+ document.getElementById('success-confirm').addEventListener('click',function(event){event.preventDefault();continueToRequests();});
+ dialog.addEventListener('cancel',function(event){event.preventDefault();continueToRequests();});
+})();
+</script>
+SUCCESS_POPUP;
 
 ?>
 </body>

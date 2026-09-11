@@ -117,7 +117,15 @@ echo "<a href='?s_page2=$pNext&urlquery_str2=".$urlquery_str2."&&radiobutton=2&&
 
 
 
-  </head>
+    <style>
+    .gallery-search-group{display:inline-flex;align-items:stretch;width:270px;max-width:100%;border:1px solid #c8d3df;border-radius:7px;overflow:hidden;background:#fff;transition:border-color .2s,box-shadow .2s}
+    .gallery-search-icon{display:flex;align-items:center;justify-content:center;flex:0 0 38px;background:#eef3f8;border-right:1px solid #c8d3df;color:#3f6596}
+    .gallery-search-group .gallery-search-input{flex:1;min-width:0;width:100%;height:38px;margin:0;padding:7px 12px;border:0!important;border-radius:0!important;background:#fff;color:#243746;font-family:'Sarabun',Tahoma,sans-serif;font-size:15px;box-shadow:none!important}
+    .gallery-search-input::placeholder{color:#91a0af}
+    .gallery-search-group:focus-within{border-color:#3f6596;box-shadow:0 0 0 3px rgba(63,101,150,.14)}
+    .gallery-search-group .gallery-search-input:focus{outline:none;background:#fff}
+    </style>
+	</head>
 
   <body class="no-skin">
     <?php include("class_head.php");?>
@@ -141,20 +149,6 @@ echo "<a href='?s_page2=$pNext&urlquery_str2=".$urlquery_str2."&&radiobutton=2&&
         <div class="main-content">
           <div class="main-content-inner">
 
-            <div class="breadcrumbs" id="breadcrumbs">
-              <script type="text/javascript">
-                try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
-              </script>
-
-              <ul class="breadcrumb">
-                <li>
-                  <i class="ace-icon fa fa-home home-icon"></i>
-                  <a href="#">Home</a>
-                </li>
-                <li class="active">Gallery</li>
-              </ul><!-- /.breadcrumb -->
-
-            </div>
 
 
 
@@ -295,11 +289,12 @@ echo "<a href='?s_page2=$pNext&urlquery_str2=".$urlquery_str2."&&radiobutton=2&&
 								<!-- search -->
 								<div class="row">
                     <div class="col-xs-12">
-                      <div class="nav-search56" id="nav-search">
+                      <div class="gallery-search-toolbar" style="position:static;margin-bottom:5px;">
                         <form class="form-search">
-                          <span class="input-icon">
-                          <input type="text" placeholder="Asset ..." class="nav-search-input5"  autocomplete="off" name="txt_name" value="<?php echo $txt_name; ?>"  />
-                          <i class="ace-icon fa fa-search nav-search-icon"></i> </span>
+                          <div class="gallery-search-group" role="search">
+                            <span class="gallery-search-icon" aria-hidden="true"><i class="fa fa-search"></i></span>
+                            <input type="search" placeholder="Asset ..." class="gallery-search-input" aria-label="ค้นหาครุภัณฑ์" autocomplete="off" name="txt_name" value="<?php echo htmlspecialchars($txt_name, ENT_QUOTES, 'UTF-8'); ?>" />
+                          </div>
                           <input type="hidden" name="g" value="1">
                           <input type="hidden" name="GL" value="1">
                           <input type="hidden" name="choose_year" value="<?php echo $choose_year; ?>">
@@ -313,7 +308,6 @@ echo "<a href='?s_page2=$pNext&urlquery_str2=".$urlquery_str2."&&radiobutton=2&&
 
                   </div>
 								<?php } ?>
-									<div class="row" style="padding:14px;"> </div>
 								<!-- search -->
 
 								<?php

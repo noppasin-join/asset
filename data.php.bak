@@ -1,40 +1,21 @@
 <?php require_once __DIR__ . '/admin/security.php'; ?>
 <style>
-body,.information-table,.information-table-controls,.information-table-footer{font-family:'Sarabun',Tahoma,sans-serif}
-.alert9{display:none!important}
-.page-content{padding-top:8px!important}
-.information-table-wrap{margin-top:7px;background:#fff;border:1px solid #d4d9df;border-radius:0;box-shadow:none;overflow-x:auto}
-.information-table{width:100%;min-width:760px;margin:0!important;border:0!important;border-collapse:collapse;color:#334155}
-.information-table thead tr:first-child td{padding:9px 10px;background:#3f6596;color:#fff;border:0;border-radius:0;font-size:13px;font-weight:600;letter-spacing:0}
-.information-table thead tr:nth-child(2){background:linear-gradient(#f8f8f8,#e9e9e9)}
-.information-table thead th{height:35px;padding:7px 8px!important;border:1px solid #d4d9df!important;color:#385477;font-size:12px;font-weight:600;white-space:nowrap;text-transform:none}
-.information-table tbody tr{height:40px;background:#fff;transition:background .15s}
-.information-table tbody tr:nth-child(even){background:#fafafa}
-.information-table tbody tr:hover{background:#eef4fb}
-.information-table tbody td{height:40px;padding:8px!important;border:1px solid #d9dde2!important;color:#334155;font-size:14px;line-height:1.3;vertical-align:middle}
-.information-table tbody tr:last-child td{border-bottom:1px solid #d9dde2!important}
-.information-table-panel{padding:16px;background:#fff;border:1px solid #d9e0e5;border-radius:7px;box-shadow:0 2px 6px rgba(0,0,0,.08)}
-.information-table-controls,.information-table-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;color:#243746;font-size:15px}
-.information-table-controls{margin:0 0 7px}
-.information-table-controls label{margin:0;font-weight:400}
-.information-table-controls-left{display:flex;align-items:center;gap:8px}
-.information-table-controls-left label{white-space:nowrap}
-.information-length{height:35px;margin:0 7px;padding:4px 10px;border:1px solid #b9c7d5;border-radius:6px;background:#fff;color:#243746;font-size:15px;vertical-align:middle}
-.information-search-group{display:inline-flex;align-items:stretch;width:270px;max-width:100%;border:1px solid #c8d3df;border-radius:7px;overflow:hidden;background:#fff;transition:border-color .2s,box-shadow .2s}
-.information-search-icon{display:flex;align-items:center;justify-content:center;flex:0 0 38px;background:#eef3f8;border-right:1px solid #c8d3df;color:#3f6596}
-.information-search-group .information-search{flex:1;min-width:0;width:100%;height:38px;margin:0;padding:7px 12px;border:0!important;border-radius:0!important;background:#fff;color:#243746;font-family:inherit;font-size:15px;box-shadow:none!important}
-.information-search::placeholder{color:#91a0af}
-.information-search-group:focus-within{border-color:#3f6596;box-shadow:0 0 0 3px rgba(63,101,150,.14)}
-.information-search-group .information-search:focus{outline:none;background:#fff}
-.information-table-footer{margin-top:8px}
-.information-table-info{margin:0;font-size:15px}
-.information-pagination{display:flex;gap:2px;margin:0}
-.information-pagination button{min-width:36px;height:38px;border:0;border-radius:5px;background:#edf0f2;color:#52616d;font-size:15px}
-.information-pagination button.active{background:#1f67c1;color:#fff;font-weight:600}
-.information-pagination button:disabled{opacity:.65}
-.information-table tbody td:first-child{color:#385477;font-weight:600}
-.information-table tbody a{color:#1769aa;font-weight:600;text-decoration:none}
-.information-table tbody a:hover{text-decoration:underline;color:#0d4775}
+.information-table-wrap{margin-top:8px;background:#fff;border:1px solid #e2ebe6;border-radius:14px;box-shadow:0 5px 20px rgba(31,75,56,.06);overflow-x:auto}
+.information-table{width:100%;min-width:760px;margin:0!important;border:0!important;border-collapse:separate;border-spacing:0;color:#29463c}
+.information-table thead tr:first-child td{padding:18px 20px;background:linear-gradient(135deg,#247b61,#3b9b7a);color:#fff;border:0;border-radius:14px 14px 0 0;font-size:17px;font-weight:600;letter-spacing:.2px}
+.information-table thead tr:nth-child(2){background:#f1f7f3}
+.information-table thead th{padding:13px 12px!important;border:0!important;border-bottom:1px solid #dce9e1!important;color:#3c6052;font-size:12px;font-weight:700;white-space:nowrap;text-transform:none}
+.information-table tbody tr{background:#fff;transition:background .15s,transform .15s}
+.information-table tbody tr:nth-child(even){background:#fbfdfb}
+.information-table tbody tr:hover{background:#eef8f2}
+.information-table tbody td{padding:14px 12px!important;border:0!important;border-bottom:1px solid #edf2ee!important;color:#476257;font-size:13px;vertical-align:middle}
+.information-table tbody tr:last-child td{border-bottom:0!important}
+.information-table tbody td:first-child{color:#7b9186;font-weight:600}
+.information-table tbody a{color:#20775c;font-weight:600;text-decoration:none}
+.information-table tbody a:hover{text-decoration:underline;color:#155b46}
+.information-tools{display:flex;justify-content:flex-end;align-items:center;margin:0 0 12px}
+.information-search{width:280px;height:40px;border:1px solid #dce9e1;border-radius:9px;padding:8px 12px 8px 38px;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%237b9186' stroke-width='2'%3E%3Ccircle cx='7' cy='7' r='5'/%3E%3Cpath d='m11 11 4 4'/%3E%3C/svg%3E") 12px center no-repeat;color:#29463c;font-size:13px}
+.information-search:focus{outline:none;border-color:#369b79;box-shadow:0 0 0 3px rgba(54,155,121,.12)}
 .information-table th[data-sort]{cursor:pointer;user-select:none}.information-table th[data-sort]::after{content:' ↕';color:#91aaa0;font-size:11px}.information-table th.sort-asc::after{content:' ↑';color:#247b61}.information-table th.sort-desc::after{content:' ↓';color:#247b61}
 @media(max-width:767px){.information-table-wrap{border-radius:10px}.information-table thead tr:first-child td{border-radius:10px 10px 0 0}.information-table tbody td{padding:12px 10px!important}}
 </style>
@@ -45,8 +26,7 @@ body,.information-table,.information-table-controls,.information-table-footer{fo
 $choose_year = $choose_category = $txt_name = $txt_user = $urlquery_str2 = $radiobutton = '';
 $s_page2 = $chk_page2 = 0;
 $g=$_GET['g'] ?? '';
-// The year dropdown submits choose_year directly without the legacy g flag.
-if ($g==1 || isset($_GET['choose_year'])) {
+if ($g==1) {
 $choose_year=$_GET['choose_year'] ?? '';
 $txt_user=$_GET['txt_user'] ?? '';
 
@@ -163,14 +143,7 @@ $radiobutton=$_POST['radiobutton'] ?? '';
 				<script type="text/javascript">
 						$(document).ready(function() {
 
-							$('.fancybox').fancybox({
-								type: 'iframe',
-								width: 900,
-								height: 520,
-								autoSize: false,
-								fitToView: true,
-								closeClick: false
-							});
+							$('.fancybox').fancybox();
 
 
 
@@ -202,6 +175,24 @@ $radiobutton=$_POST['radiobutton'] ?? '';
 
         <div class="main-content">
           <div class="main-content-inner">
+
+            <div class="breadcrumbs" id="breadcrumbs">
+              <script type="text/javascript">
+                try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+              </script>
+
+              <ul class="breadcrumb">
+                <li>
+                  <i class="ace-icon fa fa-home home-icon"></i>
+                  <a href="#">Home</a>
+                </li>
+                <li class="active">Data Equipment</li>
+              </ul><!-- /.breadcrumb -->
+
+            </div>
+
+
+
 
             <div class="page-content">
 
@@ -262,7 +253,7 @@ $radiobutton=$_POST['radiobutton'] ?? '';
                 </div>
 
 
-                  <div class="row" style="padding:4px;"> </div>
+                  <div class="row" style="padding:14px;"> </div>
 
 
 
@@ -295,18 +286,8 @@ $radiobutton=$_POST['radiobutton'] ?? '';
 
                 <div class="row">
                     <div class="col-sm-12 col-xs-12">
-                                    <div class="information-table-panel">
-                                      <div class="information-table-controls">
-                                        <div class="information-table-controls-left">
-                                          <label>แสดง <select class="information-length" aria-label="จำนวนรายการต่อหน้า"><option selected>15</option></select> รายการ</label>
-                                          <form method="get" action="data.php" style="display:inline;margin:0"><input type="hidden" name="LB" value="1"><select class="information-length" name="choose_year" aria-label="เลือกปีงบประมาณ" onchange="this.form.submit()"><option value="">ทุกปี</option><?php $years=ams_query($link,"SELECT year_budget FROM budget ORDER BY year_budget DESC"); while($year=mysqli_fetch_assoc($years)){ ?><option value="<?php echo htmlspecialchars($year['year_budget'], ENT_QUOTES, 'UTF-8'); ?>" <?php echo ((string)$choose_year === (string)$year['year_budget']) ? 'selected' : ''; ?>><?php echo htmlspecialchars($year['year_budget'], ENT_QUOTES, 'UTF-8'); ?></option><?php } ?></select></form>
-                                        </div>
-                                        <div class="information-search-group" role="search">
-                                          <span class="information-search-icon" aria-hidden="true"><i class="fa fa-search"></i></span>
-                                          <input id="information-search" class="information-search" type="search" placeholder="ค้นหา..." aria-label="ค้นหารายการขอใช้">
-                                        </div>
-                                      </div>
-                                      <div class="information-table-wrap"><table class="table information-table" id="information-table">
+                                    <div >
+                                      <div class="information-tools"><input id="information-search" class="information-search" type="search" placeholder="Search requests..." aria-label="Search requests"></div><div class="information-table-wrap"><table class="table information-table" id="information-table">
                                         <thead>
                                           <tr>
                                             <td class="head_blue" colspan="15"> :: Equipment List</td>
@@ -326,7 +307,7 @@ $radiobutton=$_POST['radiobutton'] ?? '';
 
 
 
-																																					$e_page=15; // จำนวนรายการต่อหน้า
+																					$e_page=50; //
 																					if(!isset($_GET['s_page2'])){
 																					$_GET['s_page2']=0;
 																					}else{
@@ -354,7 +335,7 @@ $radiobutton=$_POST['radiobutton'] ?? '';
                                             <td class="center font_brown"><?php echo ($chk_page2*$e_page)+$i; ?>.</td>
                                             <td class="center font_brown hidden-1100"><?php echo $rs['day_submit']; ?>/<?php echo $rs['month_submit']; ?>/<?php echo $rs['year_submit']; ?></td>
 																						<td class="font_brown">
-																								<a href="detail_data.php?id=<?php echo $rs['id']; ?>" class="fancybox fancybox.iframe" data-fancybox-type="iframe"><?php echo $rs['name']; ?>&nbsp;&nbsp;<?php echo $rs['surname']; ?></a>
+																							<a  href="detail_data.php?id=<?php echo $rs['id']; ?>" class="fancybox fancybox.ajax"><?php echo $rs['name']; ?>&nbsp;&nbsp;<?php echo $rs['surname']; ?></a>
 																						</td>
 																						<td class="font_brown hidden-1000"><?php echo $rs['department']; ?></td>
 																						<td class="font_brown hidden-1000"><?php echo $rs['objective']; ?></td>
@@ -369,7 +350,7 @@ $radiobutton=$_POST['radiobutton'] ?? '';
 																						$num_num=mysqli_num_rows($qr_num);
 																						?>
 																						<td class="font_brown center hidden-1000">
-																								<a href="detail_data.php?id=<?php echo $rs['id']; ?>" class="fancybox fancybox.iframe" data-fancybox-type="iframe"><?php echo $num_num; ?></a>
+																							<a  href="detail_data.php?id=<?php echo $rs['id']; ?>" class="fancybox fancybox.ajax"><?php echo $num_num; ?></a>
 																						</td>
 
 
@@ -385,18 +366,19 @@ $radiobutton=$_POST['radiobutton'] ?? '';
                                           <?php } ?>
                                         </tbody>
                                       </table></div>
-                                      <div class="information-table-footer">
-                                        <p class="information-table-info">แสดง <?php echo $total2 > 0 ? (($chk_page2 * $e_page) + 1) : 0; ?> ถึง <?php echo min(($chk_page2 * $e_page) + mysqli_num_rows($qr), $total2); ?> จาก <?php echo $total2; ?> รายการ</p>
-                                        <div class="information-pagination" aria-label="การแบ่งหน้า">
-                                          <?php if ($chk_page2 > 0) { ?><a href="?s_page2=<?php echo $chk_page2 - 1; ?>&LB=1&choose_year=<?php echo urlencode($choose_year); ?>&g=1"><button type="button">ก่อนหน้า</button></a><?php } else { ?><button type="button" disabled>ก่อนหน้า</button><?php } ?>
-                                          <button type="button" class="active"><?php echo $chk_page2 + 1; ?></button>
-                                          <?php if ($chk_page2 < $total_p2 - 1) { ?><a href="?s_page2=<?php echo $chk_page2 + 1; ?>&LB=1&choose_year=<?php echo urlencode($choose_year); ?>&g=1"><button type="button">ถัดไป</button></a><?php } else { ?><button type="button" disabled>ถัดไป</button><?php } ?>
-                                        </div>
-                                      </div>
 
 
                                     </div>
                                   </div>
+
+																	<?php   if ($total2 == 0 || $total_p2 == "1")  {  } else {  ?>
+																		<div class="pull-right pagination9">
+																			<li>
+																				<?php page_navigator2($before_p2,$plus_p2,$total2,$total_p2,$chk_page2,$LB,$choose_year,$txt_user,$g); ?>
+																			</li>
+																		</div>
+																	<?php } ?>
+
 
                                   </div>
 

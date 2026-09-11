@@ -6,6 +6,27 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
         'use_strict_mode' => true]);
 }
 function ams_deny($status, $message) {
+    if ($status === 401) {
+        while (ob_get_level() > 0) ob_end_clean();
+        http_response_code($status);
+        header('Content-Type: text/html; charset=UTF-8');
+        header('Cache-Control: no-store');
+        $messages = [
+            'Authentication required. Please log in.' => 'กรุณาเข้าสู่ระบบก่อนใช้งาน',
+            'Invalid session. Please log in again.' => 'กรุณาเข้าสู่ระบบก่อนใช้งาน',
+            'Username and password are required.' => 'กรุณากรอกชื่อผู้ใช้และรหัสผ่าน',
+            'Username or password is incorrect.' => 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง',
+        ];
+        $safeMessage = htmlspecialchars($messages[$message] ?? $message, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+        // Build a relative login link for both root and nested application pages.
+        $root = str_replace('\\', '/', dirname(__DIR__));
+        $entryDir = str_replace('\\', '/', dirname(realpath($_SERVER['SCRIPT_FILENAME'] ?? '') ?: __FILE__));
+        $relativeDir = substr($entryDir, strlen($root));
+        $depth = count(array_filter(explode('/', $relativeDir), 'strlen'));
+        $loginUrl = str_repeat('../', $depth) . 'admin/index.php';
+        require __DIR__ . '/login_required.php';
+        exit;
+    }
     http_response_code($status);
     header('Content-Type: text/plain; charset=UTF-8');
     header('Cache-Control: no-store');

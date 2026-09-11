@@ -15,8 +15,13 @@
 				<link rel="stylesheet" href="admin/assets/font-awesome/4.2.0/css/font-awesome.min.css" />
 				<link rel="stylesheet" href="admin/assets/fonts/fonts.googleapis.com.css" />
 				<!-- ace settings handler -->
-				<link rel="stylesheet" href="admin/reg-style.css" />
-				<link rel="stylesheet" href="admin/AdminLTE.min.css" />
+						<link rel="stylesheet" href="admin/reg-style.css" />
+						<link rel="stylesheet" href="admin/AdminLTE.min.css" />
+						<style>
+							body, table, td, font { font-family: 'Sarabun', Tahoma, sans-serif; font-size: 14px; }
+							.head_99_bold { font-size: 14px !important; }
+							.under_line_blue { font-size: 14px !important; }
+						</style>
 
 
 	</head>
@@ -38,23 +43,31 @@
 
 
 									<?php
-									$id=$_GET['id'] ?? '';
-												$sql_list = ams_sql("select * from  data_take where id=? ", ["$id"]);
-												$qr_list=ams_query($link,$sql_list) or die ("เลือกข้อมูลไม่ได้");
-												$rs_list=mysqli_fetch_array($qr_list);
+					$id=isset($_GET['id']) ? (int) $_GET['id'] : 0;
+					if (!$id) {
+						echo '<div style="padding:16px;font-family:Sarabun,Tahoma,sans-serif;font-size:14px;color:#a94442;">ไม่พบรหัสข้อมูลที่ต้องการแสดง</div>';
+						exit;
+					}
+															$sql_list = ams_sql("select * from  data_take where id=? ", ["$id"]);
+															$qr_list=ams_query($link,$sql_list) or die ("เลือกข้อมูลไม่ได้");
+															$rs_list=mysqli_fetch_array($qr_list);
+															if (!$rs_list) {
+																echo '<div style="padding:16px;font-family:Sarabun,Tahoma,sans-serif;font-size:14px;color:#a94442;">ไม่พบข้อมูลผู้ขอใช้สำหรับรายการนี้</div>';
+																exit;
+															}
 												$name_list=$rs_list['name'];
 												$surname_list=$rs_list['surname'];
 												$department_list=$rs_list['department'];
 												$objective_list=$rs_list['objective'];
 												$checkout_list=$rs_list['checkout'];
 												$checkin_list=$rs_list['checkin'];
-												$pickup_list=$rs_list['pickup'];
+															$pickup_list=$rs_list['pickup'] ?? '';
 
 												$sql_pickup = ams_sql("select * from  data_take_list where id_data_take=? and status='1' ", ["$id"]);
 												$qr_pickup=ams_query($link,$sql_pickup) or die ("เลือกข้อมูลไม่ได้");
 												$num_pickup=mysqli_num_rows($qr_pickup);
 
-												$pie_pickup=explode ("-", $pickup_list);$p_ch3=$pie_pickup[0]+543;
+															$pie_pickup=explode ("-", $pickup_list);$p_ch3=(!empty($pie_pickup[0]) ? (int) $pie_pickup[0] + 543 : 0);
 									?>
 
 										<table cellpadding="0" cellspacing="0"   border="0" style="border-collapse:collapse" >
@@ -84,7 +97,7 @@
 									                                <td height="30" >Start Date :&nbsp;&nbsp;<font class="under_line_blue">&nbsp;&nbsp;<?php echo "$pie[2]-$pie[1]-$p_ch"; ?>&nbsp;&nbsp;</font>
 									                                &nbsp;&nbsp;&nbsp;
 									                                Dua Date :&nbsp;&nbsp;<font class="under_line_blue">&nbsp;&nbsp;<?php echo "$pie2[2]-$pie2[1]-$p_ch2"; ?>&nbsp;&nbsp;</font>
-																									<?php if($num_pickup!="0" || $pie_pickup[2]!="00") { ?> &nbsp;&nbsp;&nbsp;
+																																						<?php if(!empty($pickup_list) && ($num_pickup!="0" || ($pie_pickup[2] ?? "00")!="00")) { ?> &nbsp;&nbsp;&nbsp;
 																										Pick up Date :&nbsp;&nbsp;<font class="under_line_blue">&nbsp;&nbsp;<?php echo "$pie_pickup[2]-$pie_pickup[1]-$p_ch3"; ?>&nbsp;&nbsp;</font>
 																									<?php } ?>
 									                              </td>
