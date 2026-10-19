@@ -167,6 +167,15 @@ $qr_br_update=ams_page_update($link, $sql_br_update) or die ("Error Update Statu
 						$(document).ready(function() {
 
 							$('.fancybox').fancybox();
+							$('.asset-picture').fancybox({
+								type: 'image',
+								autoSize: true,
+								fitToView: true,
+								scrolling: 'no',
+								padding: 8,
+								margin: 20,
+								aspectRatio: true
+							});
 
 
 
@@ -735,7 +744,7 @@ $qr_br_update=ams_page_update($link, $sql_br_update) or die ("Error Update Statu
 																						<td class="center hidden-800"><a  href="detail_qrcode.php?id=<?php echo $rs['id']; ?>" class="fancybox fancybox.ajax"><i class="ace-icon fa fa-qrcode bigger-130"></i></a></td>
 																						<td class="center hidden-800">
 																							<?php if($rs['file_img']!="" && $rs['file_img']!="-") { ?>
-																							<a  href="detail_data_pic.php?id=<?php echo $rs['id']; ?>" class="fancybox fancybox.ajax"><i class="ace-icon fa fa-picture-o bigger-130"></i></a>
+							<a href="file_img/<?php echo rawurlencode((string)$rs['year_budget']); ?>/<?php echo rawurlencode((string)$rs['file_img']); ?>" class="asset-picture" data-fancybox-type="image"><i class="ace-icon fa fa-picture-o bigger-130"></i></a>
 																							<?php } else { echo "-"; }?>
 																						</td>
 
